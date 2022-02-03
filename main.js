@@ -1,16 +1,40 @@
-let input = 32;
+let input = 16;
 
-// const resetButton = document.querySelector('#reset');
+//add input error handling serialization
+function getGridSize(){
+    input = prompt('Choose size');
+    return input;
+}
 
-// function gridSize(){
-//     let userChoice = prompt('Please enter desired size (maximum of 100 and must be positive)');
-//     console.log(userChoice);
-//     return userChoice;    
-// }
 
-// resetButton.addEventListener('on click', gridSize());
 
+const resetButton = document.querySelector('#resetButton');
+resetButton.addEventListener('click', () => {
+    let grid = document.querySelectorAll('.gridItemHoverState');
+    grid.forEach((gridItem) => {
+        gridItem.setAttribute('class', 'gridItem');
+        })
+    getGridSize();
+    createGrid(input);
+    })
+    
+function onHover(){
+    let grid = document.querySelectorAll('.gridItem');
+    grid.forEach((gridItem) => {
+        gridItem.addEventListener('mouseover', () => {
+            gridItem.setAttribute('class', 'gridItemHoverState')
+
+        })
+    })
+}
+    
+    
+    
 function createGrid(input) {
+    const parent = document.getElementById("container")
+    while (parent.firstChild) {
+        parent.firstChild.remove()
+    }
     for (let i = 0; i < input;i++){
         const container = document.querySelector('#container');
         const gridRow = document.createElement('div');
@@ -18,13 +42,18 @@ function createGrid(input) {
         container.appendChild(gridRow);
         for (let j = 0; j < input;j++){
             const gridDiv = document.createElement('div');
-            gridDiv.classList.add('grid-item');
+            gridDiv.classList.add('gridItem');
             gridRow.appendChild(gridDiv);
         }
-    }  
+    }
+    onHover();  
 }
 
+
 createGrid(input);
+onHover();
+
+
 
 
 
